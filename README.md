@@ -1,13 +1,12 @@
 # Persian Poetry Agent Skills
 
-[![validate](https://github.com/Mokhytonium/persian-poetry-agent-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Mokhytonium/persian-poetry-agent-skills/actions/workflows/validate.yml)
-[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-educational%20%2F%20personal-blue)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.1.0-green)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.2.0-green)](CHANGELOG.md)
+[![Format](https://img.shields.io/badge/format-pure%20markdown-blue)](docs/ARCHITECTURE.md)
 
-> Two modular agent skills for **Persian poetry** — classical (ghazal, masnavi, robai, qasida) and modern (free verse, Nimā'i) — covering writing, continuation, revision, criticism, and **verified prosody**. Ships with a deterministic meter scanner, measurable evals, and CI.
+> Two modular agent skills for **Persian poetry** — classical (ghazal, masnavi, robai, qasida) and modern (free verse, Nimā'i) — covering writing, continuation, revision, criticism, and **verified prosody**. Pure Markdown instructions — no executable code. Ships with a step-by-step manual scansion method, measurable evals, and worked examples.
 
-دو اسکیل مستقل و ماژولار برای شعر فارسی، به‌همراه ابزار تقطیع قطعی، evalهای سنجش‌پذیر و اعتبارسنجی خودکار.
+دو اسکیل مستقل و ماژولار برای شعر فارسی؛ کاملاً مارک‌داون و بدون کد اجرایی. با روش تقطیع دستیِ گام‌به‌گام، evalهای سنجش‌پذیر و نمونه‌های انجام‌شده.
 
 - [`skills/persian-classical-poet/`](skills/persian-classical-poet/) — غزل، مثنوی، رباعی، دوبیتی، قصیده، قطعه
 - [`skills/persian-modern-poet/`](skills/persian-modern-poet/) — شعر نو، سپید، آزاد، نیمایی
@@ -17,7 +16,7 @@
 مدل‌های زبانی در شعر فارسی اغلب وزن را «حدس» می‌زنند و با اطمینان ادعای «کاملاً موزون» می‌کنند. این بسته سه کار می‌کند:
 
 1. **دانش فنی واقعی:** جدول بحور با الگوی هجایی، اختیارات شاعری، حروف قافیه و وزن هر قالب — نه فقط توصیه.
-2. **تقطیع قطعی:** اسکریپت [`scan_meter.py`](scripts/scan_meter.py) الگوی کوتاه/بلند را محاسبه و با وزن هدف تطبیق می‌دهد؛ ادعا را به محاسبه بدل می‌کند.
+2. **تقطیع دستیِ روش‌مند:** [راهنمای عروض](skills/persian-classical-poet/references/prosody.md) الگوریتم گام‌به‌گام هجابندی، ساخت الگو و تطبیق با وزن را می‌دهد؛ ایجنت خودش تقطیع می‌کند و گزارش می‌نویسد، نه حدس.
 3. **صداقت فنی:** چهار سطح قطعیت («خوش‌آهنگ» ← «وزن محتمل» ← «تقطیع‌شده» ← «تأییدشده»)؛ فقط سطح آخر اجازه‌ی ادعای قطعی می‌دهد.
 
 ## ساختار
@@ -25,12 +24,8 @@
 ```text
 persian-poetry-agent-skills/
 ├── README.md · LICENSE · CONTRIBUTING.md · CHANGELOG.md
-├── .github/                  # CI + قالب‌های issue/PR
+├── .github/                  # قالب‌های issue/PR
 ├── docs/ARCHITECTURE.md
-├── scripts/
-│   ├── scan_meter.py         # تقطیع‌یار فارسی
-│   └── validate_package.py   # اعتبارسنج ساختار
-├── tests/                    # تست‌های اسکریپت تقطیع
 └── skills/
     ├── persian-classical-poet/
     │   ├── SKILL.md          # نقطه‌ی ورود و ارکستراسیون
@@ -71,38 +66,32 @@ cp -r skills/persian-modern-poet   ~/.claude/skills/
 - «این شعر نو را بازنویسی کن؛ تصویر مرکزی‌اش را حفظ کن.»
 - «آیا این مصراع موزون است؟ بررسی کن.» (اسکیل بدون تقطیع تأیید نمی‌کند)
 
-## ابزار تقطیع
+## روش تقطیع
 
-[`scripts/scan_meter.py`](scripts/scan_meter.py) آوانویسیِ هجابندی‌شده را می‌گیرد و الگو را می‌سازد:
+تقطیع **دستی** و توسط خود ایجنت انجام می‌شود؛ هیچ اسکریپتی در کار نیست. [راهنمای عروض](skills/persian-classical-poet/references/prosody.md) الگوریتم کامل را می‌دهد:
 
-```bash
-# تقطیع یک مصراع و تطبیق با وزن هدف
-python scripts/scan_meter.py \
-  --text "بشنو این نی چون شکایت می‌کند" \
-  --line "besh-no-vī-ney-chon-she-kā-yat-mī-ko-nad" \
-  --meter "رمل مسدس محذوف"
+۱. مصراع را با تلفظ پیوسته بخوان و به آوانویسی لاتین برگردان (واکه‌ی کوتاه `a e o i u`، بلند `ā ī ū`، مرکب `ey ow`؛ جداکننده‌ی هجا `-`).
+۲. مقدار هر هجا را بگیر: `CV=U`، `CVV/CVC=—`، `CVVC/CVCC=—U` (کشیده)؛ هجای پایانی همیشه بلند.
+۳. الگو را از چپ به راست بساز، با وزن هدف تطبیق بده و نخستین اختلاف را مشخص کن.
+۴. گزارش بنویس: تلفظ مبنا، هجابندی، الگو، تطبیق و سطح قطعیت.
 
-# شناسایی وزن از روی الگو (بدون --meter)
-python scripts/scan_meter.py --line "be-sah-rā-ban-ga-ram-sah-rā-ta-vī-nam"
+نمونه‌ی انجام‌شده (مولوی، رمل مسدس محذوف): «بشنو این نی چون شکایت می‌کند» → `besh-no-vī-ney-chon-she-kā-yat-mī-ko-nad` → `— U — — / — U — — / — U —` (۱۱ هجا). **تشخیص اضافه، همزه و تلفظ صحیح بر عهده‌ی ایجنت است**؛ آوانویسی نادرست = تقطیع نادرست.
 
-# جدول بحور
-python scripts/scan_meter.py --list-meters
-```
+## اعتبارسنجی
 
-طرح آوانویسی: واکه‌ی کوتاه `a e o i u`، بلند `ā ī ū`، مرکب `ey ow`؛ جداکننده‌ی هجا `-` یا فاصله. قواعد: `CV=U`، `CVV/CVC=—`، `CVVC/CVCC=—U` (کشیده)، هجای پایانی همیشه بلند. **تشخیص اضافه، همزه و تلفظ صحیح بر عهده‌ی کاربر است**؛ ورودی نادرست = نتیجه‌ی نادرست.
+اعتبارسنجی **دستی** است (بدون کد اجرایی). پیش از انتشار هر تغییر، این چک‌لیست را در [CONTRIBUTING.md](CONTRIBUTING.md) بررسی کنید:
 
-## اعتبارسنجی و تست
+- فرانت‌متر هر `SKILL.md` کامل باشد (`name`، `description`، `version`) و description از ۱۰۲۴ نویسه بیشتر نشود.
+- هیچ فایل یتیمی نباشد: هر `references/*.md` و `examples/*.md` از `SKILL.md` لینک شده باشد.
+- همه‌ی لینک‌های محلی به فایل موجود اشاره کنند.
+- هر eval `id` یکتا، `prompt` و `acceptance` سنجش‌پذیر داشته باشد؛ در صورت ارجاع به متن، `input` واقعی ضمیمه شود.
+- هر نمونه‌ی تقطیع دستی انجام شده و تلفظ مبنا + الگو کنارش آمده باشد.
 
-```bash
-python scripts/validate_package.py        # ساختار، فرانت‌متر، لینک‌ها، فایل یتیم، evalها
-python -m unittest discover -s tests -v   # تست‌های اسکریپت تقطیع
-```
-
-اعتبارسنج ساختار را می‌سنجد، **نه کیفیت ادبی یا صحت عروض را**. CI روی هر push/PR هر دو را اجرا می‌کند.
+این چک‌لیست ساختار و انضباط را می‌سنجد، **نه کیفیت ادبی یا صحت عروض را**.
 
 ## evals
 
-هر اسکیل ۱۰ کیس با متن ورودی (`input`) و معیارهای پذیرش سنجش‌پذیر دارد؛ از جمله تقطیع، تشخیص وزن شکسته، قافیه‌ی آوایی، جداسازی قافیه/ردیف، سطرشکنی، حفظ هسته و صداقت فنی. کیس‌های تقطیع با `scan_meter.py` قابل راستی‌آزمایی‌اند.
+هر اسکیل ۱۰ کیس با متن ورودی (`input`) و معیارهای پذیرش سنجش‌پذیر دارد؛ از جمله تقطیع، تشخیص وزن شکسته، قافیه‌ی آوایی، جداسازی قافیه/ردیف، سطرشکنی، حفظ هسته و صداقت فنی. کیس‌های تقطیع، الگوی هجایی دقیق و گزارش دستی را می‌سنجند.
 
 ## اصول
 
@@ -116,7 +105,7 @@ python -m unittest discover -s tests -v   # تست‌های اسکریپت تق�
 
 ## مشارکت
 
-[`CONTRIBUTING.md`](CONTRIBUTING.md) را ببینید. هر نمونه‌ی تقطیع باید با اسکریپت تأیید شود؛ هر فایل منبع باید از `SKILL.md` لینک شود؛ evalها باید معیار سنجش‌پذیر داشته باشند.
+[`CONTRIBUTING.md`](CONTRIBUTING.md) را ببینید. هر نمونه‌ی تقطیع باید دستی انجام و بازبینی شود؛ هر فایل منبع باید از `SKILL.md` لینک شود؛ evalها باید معیار سنجش‌پذیر داشته باشند.
 
 ## مجوز
 

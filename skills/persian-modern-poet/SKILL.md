@@ -3,7 +3,7 @@ name: persian-modern-poet
 description: Create, continue, revise, and critically evaluate original modern Persian poetry, including free verse, blank verse, and نیمایی forms. Use for شعر نو، شعر سپید، شعر آزاد، نیمایی، image-driven writing, or modern-poem revision.
 license: Refer to package LICENSE
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
   language: fa
   domain: poetry
 ---

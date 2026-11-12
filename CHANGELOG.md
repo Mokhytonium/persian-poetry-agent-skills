@@ -3,6 +3,17 @@
 تمام تغییرهای notable این بسته در این فایل ثبت می‌شود.
 قالب بر پایه‌ی [Keep a Changelog](https://keepachangelog.com/) و نسخه‌بندی [Semantic Versioning](https://semver.org/).
 
+## [2.2.0] - 2026-11-12
+
+### Removed
+- حذف کامل کد پایتون: `scripts/scan_meter.py`، `scripts/validate_package.py`، `tests/` و گردش‌کار CI (`.github/workflows/validate.yml`). بسته اکنون کاملاً مارک‌داون است و هیچ کد اجرایی ندارد.
+
+### Changed
+- `prosody.md`: روش تقطیع دستیِ گام‌به‌گام (طرح آوانویسی، الگوریتم هجابندی، ساخت الگو، تطبیق، یافتن نخستین اختلاف) جایگزین فراخوانی اسکریپت شد؛ بخش محدودیت‌ها بازنویسی شد.
+- همه‌ی ارجاعات به اسکریپت/تست/CI از `SKILL.md`، `evals.json`، `examples/revision-lab.md`، `forms.md`، `README.md`، `CONTRIBUTING.md`، `docs/ARCHITECTURE.md` و قالب‌های issue/PR پاک شد.
+- اعتبارسنجی اکنون یک چک‌لیست دستی در `CONTRIBUTING.md` است (بدون فایل یتیم، لینک‌های سالم، eval سنجش‌پذیر، تقطیعِ نشان‌داده‌شده).
+- نسخه‌ی هر دو اسکیل به `2.2.0` ارتقا یافت.
+
 ## [2.1.0] - 2026-11-12
 
 ### Added
