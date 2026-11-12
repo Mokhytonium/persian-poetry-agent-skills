@@ -1,4 +1,4 @@
-# Persian Poetry Agent Skills v2
+# Persian Poetry Agent Skills 
 
 دو اسکیل مستقل و ماژولار برای شعر فارسی:
 - `skills/persian-modern-poet/`: شعر نو، سپید، آزاد و نیمایی
