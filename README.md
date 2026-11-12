@@ -1,10 +1,10 @@
 # Persian Poetry Agent Skills
 
 [![License](https://img.shields.io/badge/license-educational%20%2F%20personal-blue)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.2.0-green)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.3.0-green)](CHANGELOG.md)
 [![Format](https://img.shields.io/badge/format-pure%20markdown-blue)](docs/ARCHITECTURE.md)
 
-> Two modular agent skills for **Persian poetry** — classical (ghazal, masnavi, robai, qasida) and modern (free verse, Nimā'i) — covering writing, continuation, revision, criticism, and **verified prosody**. Pure Markdown instructions — no executable code. Ships with a step-by-step manual scansion method, measurable evals, and worked examples.
+> Two modular agent skills for **Persian poetry** — classical (ghazal, masnavi, robai, qasida) and modern (free verse, Nimā'i) — covering writing, continuation, revision, criticism, and **verified prosody**. Pure Markdown instructions — no executable code. Ships with a step-by-step manual scansion method, a catalog of signature meaning-bearing techniques (every poem must activate at least one), measurable evals, and worked examples.
 
 دو اسکیل مستقل و ماژولار برای شعر فارسی؛ کاملاً مارک‌داون و بدون کد اجرایی. با روش تقطیع دستیِ گام‌به‌گام، evalهای سنجش‌پذیر و نمونه‌های انجام‌شده.
 
@@ -13,11 +13,12 @@
 
 ## چرا این بسته؟
 
-مدل‌های زبانی در شعر فارسی اغلب وزن را «حدس» می‌زنند و با اطمینان ادعای «کاملاً موزون» می‌کنند. این بسته سه کار می‌کند:
+مدل‌های زبانی در شعر فارسی اغلب وزن را «حدس» می‌زنند و با اطمینان ادعای «کاملاً موزون» می‌کنند. این بسته چهار کار می‌کند:
 
 1. **دانش فنی واقعی:** جدول بحور با الگوی هجایی، اختیارات شاعری، حروف قافیه و وزن هر قالب — نه فقط توصیه.
 2. **تقطیع دستیِ روش‌مند:** [راهنمای عروض](skills/persian-classical-poet/references/prosody.md) الگوریتم گام‌به‌گام هجابندی، ساخت الگو و تطبیق با وزن را می‌دهد؛ ایجنت خودش تقطیع می‌کند و گزارش می‌نویسد، نه حدس.
 3. **صداقت فنی:** چهار سطح قطعیت («خوش‌آهنگ» ← «وزن محتمل» ← «تقطیع‌شده» ← «تأییدشده»)؛ فقط سطح آخر اجازه‌ی ادعای قطعی می‌دهد.
+4. **فنون معناساز:** کاتالوگ فنون و مضمون‌های شاخص برای هر دو اسکیل؛ هر شعر باید دست‌کم یک فنِ معناساز را فعال کند، نه تزئینی. نمونه‌های کلاسیک تأییدشده‌اند و نمونه‌های نو اصیل و خودساخته.
 
 ## ساختار
 
@@ -29,12 +30,12 @@ persian-poetry-agent-skills/
 └── skills/
     ├── persian-classical-poet/
     │   ├── SKILL.md          # نقطه‌ی ورود و ارکستراسیون
-    │   ├── references/       # عروض، قافیه، قالب‌ها، تصویر، زبان، نقد، …
+    │   ├── references/       # عروض، قافیه، قالب‌ها، تصویر، فنون شاخص، زبان، نقد، …
     │   ├── examples/         # آزمایشگاه بازنویسی (نمونه‌های انجام‌شده)
     │   └── evals/evals.json
     └── persian-modern-poet/
         ├── SKILL.md
-        ├── references/       # تصویر، ریتم، زبان، صدا، نقد، …
+        ├── references/       # تصویر، ریتم، زبان، صدا، فنون شاخص، نقد، …
         ├── examples/
         └── evals/evals.json
 ```
@@ -91,7 +92,14 @@ cp -r skills/persian-modern-poet   ~/.claude/skills/
 
 ## evals
 
-هر اسکیل ۱۰ کیس با متن ورودی (`input`) و معیارهای پذیرش سنجش‌پذیر دارد؛ از جمله تقطیع، تشخیص وزن شکسته، قافیه‌ی آوایی، جداسازی قافیه/ردیف، سطرشکنی، حفظ هسته و صداقت فنی. کیس‌های تقطیع، الگوی هجایی دقیق و گزارش دستی را می‌سنجند.
+هر اسکیل ۱۱ کیس با متن ورودی (`input`) و معیارهای پذیرش سنجش‌پذیر دارد؛ از جمله تقطیع، تشخیص وزن شکسته، قافیه‌ی آوایی، جداسازی قافیه/ردیف، سطرشکنی، حفظ هسته، صداقت فنی و فعال‌سازی فنِ معناساز (C11/M11). کیس‌های تقطیع، الگوی هجایی دقیق و گزارش دستی را می‌سنجند.
+
+## فنون شاخص
+
+هر اسکیل یک کاتالوگ «فنون و مضمون‌های شاخص» دارد. قانون: **هر شعر دست‌کم یک فنِ معناساز را فعال کند** — نه تزئینی و نه صرفاً قابل‌نام‌گذاری؛ نام، جایگاه و کارکرد فن در گزارش می‌آید.
+
+- کلاسیک: [فنون و مضمون‌های شاخص](skills/persian-classical-poet/references/signature-techniques.md) — ایهام، اسلوب معادله، حسن تعلیل، مضمون‌آفرینی/تصویر دور، پارادوکس، نماد، تلمیح، اغراق، ارسال‌المثل، جناس، تشخیص و ردیف معناساز؛ با نمونه‌های تأییدشده‌ی مالک عمومی (حافظ، خیام، صائب، بیدل، مولوی، سعدی، عطار، باباطاهر).
+- نو: [فنون و مضمون‌های شاخص](skills/persian-modern-poet/references/signature-techniques.md) — حس‌آمیزی، نمادگرایی، وارونگی، تشخیص، سطرشکنی معناساز، بازگشت دیرهنگام، پرسونا، ایجاز، تکرار و عینیت؛ با ارجاع کوتاه آموزشی به شاعران و نمونه‌های اصیلِ خودساخته (بدون نقل شعر دارای حق‌تألیف و بدون تقلید صدا).
 
 ## اصول
 
@@ -102,6 +110,7 @@ cp -r skills/persian-modern-poet   ~/.claude/skills/
 5. پرسش‌گری هوشمند؛ فقط اگر پاسخ مسیر اثر را تغییر دهد.
 6. هر بیت/بند باید کارکرد تازه‌ای داشته باشد.
 7. تشخیص ابهام سازنده از نحو نامفهوم.
+8. هر شعر دست‌کم یک فنِ معناساز از کاتالوگ فنون شاخص دارد؛ فن باید فعال و غیرتزئینی باشد.
 
 ## مشارکت
 

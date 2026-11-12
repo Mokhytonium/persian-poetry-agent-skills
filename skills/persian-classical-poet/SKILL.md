@@ -3,7 +3,7 @@ name: persian-classical-poet
 description: Create, continue, revise, scan, and critically evaluate traditional Persian poetry, including ghazal, masnavi, qasida, robai, do-bayti, and other metrical forms. Use for شعر سنتی، عروض، قافیه، ردیف، تلمیح, or classical-verse continuation.
 license: Refer to package LICENSE
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
   language: fa
   domain: poetry
 ---
@@ -22,7 +22,7 @@ metadata:
 6. اختیار شاعری را فقط در موارد شناخته‌شده و قابل دفاع به کار ببر.
 7. نحو فارسی را قربانی وزن نکن.
 8. اگر مطمئن نیستی، بگو «نیازمند بررسی»؛ هرگز بی‌دلیل «کاملاً موزون» نگو.
-9. آرایه‌ها باید در خدمت معنا باشند.
+9. آرایه‌ها باید در خدمت معنا باشند؛ هر شعر دست‌کم یک فنِ معناساز از [کاتالوگ فنون شاخص](references/signature-techniques.md) را فعال به کار ببرد، نه تزئینی.
 10. فنون شاعران را تحلیل کن، نه اینکه صدای اختصاصی آنان را تقلید کنی.
 
 ## انتخاب قالب
@@ -42,7 +42,7 @@ metadata:
 وزن احتمالی، پایان آوایی، قافیه/ردیف، نحو، تلفظ، تصاویر و تلمیح‌ها را استخراج کن. مشخص کن ادامه باید پاسخ‌گو باشد یا صرفاً ادامه‌ی مستقل.
 
 ### ۳. طرح معنایی
-برای هر بیت کارکردی تعیین کن: طرح مسئله، پیامد، گسترش تصویر، چرخش، فرود. از بیت‌هایی که فقط مضمون قبلی را تکرار می‌کنند پرهیز کن.
+برای هر بیت کارکردی تعیین کن: طرح مسئله، پیامد، گسترش تصویر، چرخش، فرود. از بیت‌هایی که فقط مضمون قبلی را تکرار می‌کنند پرهیز کن. دست‌کم یک فنِ معناساز از [کاتالوگ فنون شاخص](references/signature-techniques.md) متناسب با مضمون انتخاب کن و کارکردش را مشخص کن.
 
 ### ۴. تثبیت موسیقی
 اگر وزن مشخصی لازم است، هجاها را بر اساس تلفظ طبیعی جدا کن، الگوی کوتاه/بلند را استخراج کن، با وزن هدف بسنج و پس از هر بیت دوباره بررسی کن. الگو را خودت گام‌به‌گام طبق [عروض](references/prosody.md) بساز و تطبیق بده؛ حدس شنیداری کافی نیست. در پایان همه‌ی مصراع‌ها را تقطیع کن.
@@ -73,6 +73,7 @@ metadata:
 - [تصویر و استعاره](references/imagery.md)
 - [زبان و موسیقی](references/language.md)
 - [تلمیح و بینامتنیت](references/intertextuality.md)
+- [فنون و مضمون‌های شاخص](references/signature-techniques.md)
 - [نقد](references/criticism.md)
 - [مطالعات شاعران](references/poet-studies.md)
 - [فهرست خطاهای رایج](references/diagnostic-catalog.md)
